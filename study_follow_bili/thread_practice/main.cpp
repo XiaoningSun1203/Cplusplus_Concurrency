@@ -55,8 +55,7 @@
 //new thread启动之后，你需要决定的是main thread是否要等待new thread结束，等待(my_thread.join())，不等待(my_thread.detach())。
 //如果std::thread对象销毁之前还没有做出决定，程序就会终止(std::thread的析构函数会调std::terminate())。因此，即便是有异常存在，也需要确保线程能够正确的加入(joined)或分离(detached)。2.1.3节中，会介绍对应的方法来处理这两种情况。需要注意的是，必须在std::thread对象销毁之前做出决定，否则你的程序将会终止(std::thread的析构函数会调用std::terminate()，这时再去决定会触发相应异常)。
 //使用join()，主线程不仅会等待new thread结束，还会在new thread结束后清理了它相关的存储部分。这样对象my_thread将不再与已经完成的线程new thread有任何关联。这意味着，只能对一个线程使用一次join();当对my_thread.joinable()时，将返回false。
-//使用std::thread成员函数detach()，会让new thread在后台运行，主线程不能与new thread产生直接交互。也就是说，主线程不会等待new thread结束；如果线程分离，那任何std::thread对象都不能引用它，分离线程的确在后台运行，所以分离线程不能被加入。不过C++运行库保证，当线程退出时，相关资源的能够正确回收，后台线程的归属和控制C++运行库都会处理。
-
+//使用std::thread成员函数detach()，会让new thread在后台运行，主线程不能与new thread产生直接交互。也就是说，主线程不会等待new thread结束；如果线程分离，那任何std::thread对象都不能引用它，分离线程的确在后台运行，所以分离线程不能被加入。不过C++运行库保证，当线程退出时，相关资源的能够正确回收，后台线程的归属和控制C++运行库都会处理。
 //#include <iostream>
 //#include <thread>
 //#include <string>
